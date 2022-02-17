@@ -14,9 +14,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import StoreIcon from '@material-ui/icons/Store';
+
+
 
 const drawerWidth = 240;
 
@@ -119,24 +122,25 @@ export default function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+      <Drawer  variant="permanent" open={open}>
+        <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ?  <ChevronRightIcon />:  <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Verify Pro', 'Verify Seller',].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <SearchIcon /> : <SearchIcon />}
+                {index % 2 === 0 ? <VerifiedUserIcon /> : <StoreIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        <Divider />
+        {/* <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
@@ -146,7 +150,8 @@ export default function App() {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
+
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
