@@ -19,12 +19,22 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import StoreIcon from '@material-ui/icons/Store';
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#FFC0CB',
+    },
+  },
+});
 
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
+  // backgroundColor: "rgba(120,120,120,0.2)", //target here
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -103,7 +113,8 @@ export default function App() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <ThemeProvider theme={darkTheme}>
+      <AppBar  position="fixed" open={open} >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -122,6 +133,7 @@ export default function App() {
           </Typography>
         </Toolbar>
       </AppBar>
+      </ThemeProvider>
       <Drawer  variant="permanent" open={open}>
         <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
