@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -109,8 +110,14 @@ export default function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+=======
+import logo from './logo.svg';
+import './App.css';
+>>>>>>> parent of c39c6ca (drawer navigation and icon)
 
+function App() {
   return (
+<<<<<<< HEAD
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <ThemeProvider theme={darkTheme}>
@@ -196,32 +203,25 @@ export default function App() {
         </Typography>
       </Box>
     </Box>
+=======
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+>>>>>>> parent of c39c6ca (drawer navigation and icon)
   );
 }
 
-
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
+export default App;
