@@ -1,8 +1,8 @@
 import "./App.css";
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Container, Navbar, Nav, NavItem } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Container, Navbar, Nav } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route,  } from "react-router-dom"; //Router show warning may ignore cause without it no function
 import Dashboard from "./components/dashboard";
 import VerifyPro from "./components/verifyPro";
 import VerifySeller from "./components/verifySeller";
@@ -26,11 +26,13 @@ function App() {
       </Navbar.Collapse>
       </Container>
       </Navbar>
+     
       <Routes>
         <Route exact path="/dashboard" element={<Dashboard />}></Route>
         <Route exact path="/verifyPro" element={<VerifyPro />}></Route>
          <Route exact path="/verifySeller" element={<VerifySeller />}></Route>
       </Routes>
+      
     </div>
   );
 }
