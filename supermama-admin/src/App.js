@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Navbar, Nav, NavItem } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Dashboard from "./components/dashboard";
@@ -11,27 +12,20 @@ import VerifySeller from "./components/verifySeller";
 function App() {
   return (
     <div className="App">
-      <Nav className="ml-auto">
+    <Navbar bg="light" expand="lg">
+    <Container>
+    <Navbar.Brand href="/dashboard">Supermama</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
 
-        <NavItem>
-          <Link className="nav-link" to="/dashboard">
-           Dashboard
-          </Link>
-        </NavItem>
-
-        <NavItem>
-          <Link className="nav-link" to="/verifyPro">
-           Verification Professional
-          </Link>
-        </NavItem>
-
-         <NavItem>
-          <Link className="nav-link" to="/verifySeller">
-           Verification Seller
-          </Link>
-        </NavItem>
-
+      <Nav className="me-auto">
+      <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+      <Nav.Link href="/verifyPro">Verification Professional</Nav.Link>
+      <Nav.Link href="/verifySeller"> Verification Seller</Nav.Link>
       </Nav>
+      </Navbar.Collapse>
+      </Container>
+      </Navbar>
       <Routes>
         <Route exact path="/dashboard" element={<Dashboard />}></Route>
         <Route exact path="/verifyPro" element={<VerifyPro />}></Route>
