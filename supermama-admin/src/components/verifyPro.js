@@ -1,6 +1,6 @@
 import React from 'react';
 
-const verifyPro = () => {
+function VerifyPro(){
     return (
         <div>
             <h1>This is verifyPro Page</h1>
@@ -8,4 +8,4 @@ const verifyPro = () => {
     )
 }
 
-export default verifyPro;
+export default VerifyPro;

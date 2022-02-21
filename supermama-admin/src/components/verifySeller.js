@@ -1,6 +1,6 @@
 import React from 'react';
 
-const verifySeller = () => {
+const VerifySeller = () => {
     return (
         <div>
             <h1>This is verifySeller Page</h1>
@@ -8,4 +8,4 @@ const verifySeller = () => {
     )
 }
 
-export default verifySeller;
+export default VerifySeller;
