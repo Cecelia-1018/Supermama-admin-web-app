@@ -4,9 +4,9 @@ import {collection, query, onSnapshot} from "firebase/firestore"
 import {db} from '../firebase'
 
 function Dashboard(){
-    const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([])
 
-   useEffect(() => {
+  useEffect(() => {
   const q = query(collection(db, 'users'))
   onSnapshot(q, (querySnapshot) => {
     setUsers(querySnapshot.docs.map(doc => ({
@@ -19,7 +19,7 @@ function Dashboard(){
     return (
         <>
         <div>
-            <h1>This is dashboard Page</h1>
+            {/* <h1>This is dashboard Page</h1> */}
              {users.map((user) => (
          <h2>  {user.data.name} </h2>
         
