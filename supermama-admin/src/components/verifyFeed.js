@@ -119,7 +119,13 @@ function VerifyFeed() {
                   </button>
                   <br />
                   <br />
-                  <button onClick={deleteFeed.bind(this, feeds.id)}>
+                  <button
+                    onClick={() => {
+                      if (window.confirm("Delete the item?")) {
+                        deleteFeed.bind(this, feeds.id);
+                      }
+                    }}
+                  >
                     Reject
                   </button>
                 </td>
