@@ -1,7 +1,21 @@
-// import React from 'react';
-import React,{useState, useEffect} from 'react'
-import {collection, query, onSnapshot} from "firebase/firestore"
-import {db} from '../firebase'
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  query,
+  onSnapshot,
+  where,
+  QuerySnapshot,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { Button } from "react-bootstrap";
+import { db } from "../firebase";
+import { useSelector } from "react-redux";
+import { useFirestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
+//Calling Bootstrap 4.5 css
+import "bootstrap/dist/css/bootstrap.min.css";
+import Table from "material-table";
 
 function VerifyPro(){
     const [verifyPro, SetVerifyPro] = useState([]);
@@ -17,20 +31,61 @@ function VerifyPro(){
          );
        });
      }, []);
+
+     if(isEmpty(verifyPro)) {
+       return "No verification";
+     }
+
     return (
-         <>
-        <div>
-            {/* <h1>This is dashboard Page</h1> */}
-             {verifyPro.map((verify) => (
-            <h6>  {verify.data.proField} </h6>
-            // <h6>  {verify.data.userId} </h6>
-            // <h6>  {verify.data.proField} </h6>
+      <div>
+      <div className="container">
+        <table id="example" class="display table">
+          <thead class="thead-dark">
+            <tr>
+              <th>Detail</th>
+              <th>Certificate</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {verifyPro.map((verify) => (
+             <tr>
+              <td align="left">
+                  <b>VerifyID:</b> <br />
+                  {verify.id}
+                  <br /><b>User Id:</b> <br />
+                  {verify.data.userId} <br />
+                  <b>Professional Field:</b> <br />
+                  {verify.data.proField} <br />
+                  
+              </td>
+
+             <td>Picture</td>
+
+             <td>{verify.data.status}</td>
+             
+             <td>
+                  
+             <Button variant="outline-primary">Verify</Button>
+                  <br />
+                  <br />
+                  <Button variant="danger">Reject</Button>
+                </td>
+
+             </tr>
+            
+            ))} 
         
      
           
-        ))}
-        </div>
-        </>
+    
+          </tbody>
+         </table>
+      </div>
+     </div>
+       
+        
     )
 }
 
