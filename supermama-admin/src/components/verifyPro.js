@@ -52,6 +52,21 @@ function VerifyPro() {
   if (isEmpty(verifyPro)) {
     return "No verification";
   }
+  
+ 
+  function updateVerified(id) {
+    updateDoc(doc(db, "verifyPro", id), {
+      status: "Verified",
+    });
+  }
+
+  function updateRejected(id) {
+    updateDoc(doc(db, "verifyPro", id), {
+      status: "Rejected",
+    });
+  }
+  
+  
 
   return (
     <div>
@@ -91,10 +106,10 @@ function VerifyPro() {
                 <td>{verify.data.status}</td>
 
                 <td>
-                  <Button variant="outline-primary">Verify</Button>
+                  <Button onClick={updateVerified.bind(this, verify.id)} variant="outline-primary">Verify</Button>
                   <br />
                   <br />
-                  <Button variant="danger">Reject</Button>
+                  <Button onClick={updateRejected.bind(this, verify.id)} variant="danger">Reject</Button>
                 </td>
               </tr>
             ))}
