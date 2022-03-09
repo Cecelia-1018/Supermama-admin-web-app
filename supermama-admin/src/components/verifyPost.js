@@ -15,22 +15,25 @@ import { useFirestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "material-table";
 
-function VerifyFeed() {
-  const [feeds, setFeeds] = useState([]);
-  function updateFeed(id) {
-    updateDoc(doc(db, "feed", id), {
+function VerifyPost() {
+  const [posts, setPosts] = useState([]);
+  function updatePost(id) {
+    updateDoc(doc(db, "entertainment", id), {
       post: true,
     });
   }
-  function deleteFeed(id) {
-    deleteDoc(doc(db, "feed", id));
+  function deletePost(id) {
+    deleteDoc(doc(db, "entertainment", id));
   }
 
   useEffect(() => {
-    const q = query(collection(db, "feed"), where("post", "==", false));
+    const q = query(
+      collection(db, "entertainment"),
+      where("post", "==", false)
+    );
     // const snapshot = await citiesRef.where("post", "==", false).get();
     onSnapshot(q, (querySnapshot) => {
-      setFeeds(
+      setPosts(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
@@ -38,8 +41,8 @@ function VerifyFeed() {
       );
     });
   }, []);
-  if (isEmpty(feeds)) {
-    return "No new feed";
+  if (isEmpty(posts)) {
+    return "No new post";
   }
   return (
     <div>
@@ -47,7 +50,7 @@ function VerifyFeed() {
         <table id="example" class="display table">
           <thead class="thead-dark">
             <tr>
-              <th>Feed Id</th>
+              <th>Post Id</th>
               <th>Username</th>
               <th>Content</th>
               <th>Image</th>
@@ -55,29 +58,24 @@ function VerifyFeed() {
             </tr>
           </thead>
           <tbody>
-            {feeds.map((feeds) => (
+            {posts.map((posts) => (
               <tr>
-                <td>{feeds.id}</td>
-                <td>{feeds.data.username}</td>
+                <td>{posts.id}</td>
+                <td>{posts.data.username}</td>
                 <td align="left">
-                  Title: <br />
-                  {feeds.data.title}
-                  <br /> Description: <br />
-                  {feeds.data.description} <br />
-                  Detail: <br />
-                  {feeds.data.details} <br />
-                  Hashtag: <br />
-                  {feeds.data.hashtag}
+                  Description: <br />
+                  {posts.data.description} <br />
+                  Hashtag: <br />#{posts.data.hashtag}
                 </td>
                 <td>
                   <img
-                    src={feeds.data.image}
+                    src={posts.data.image}
                     style={{ width: 150, height: 150 }}
                   />
                 </td>
                 <td>
                   <br />
-                  <button onClick={updateFeed.bind(this, feeds.id)}>
+                  <button onClick={updatePost.bind(this, posts.id)}>
                     Approve
                   </button>
                   <br />
@@ -85,7 +83,7 @@ function VerifyFeed() {
                   <button
                     onClick={() => {
                       if (window.confirm("Delete the item?")) {
-                        deleteFeed.bind(this, feeds.id);
+                        deletePost.bind(this, posts.id);
                       }
                     }}
                   >
@@ -101,4 +99,4 @@ function VerifyFeed() {
   );
 }
 
-export default VerifyFeed;
+export default VerifyPost;

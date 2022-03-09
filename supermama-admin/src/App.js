@@ -7,6 +7,7 @@ import Dashboard from "./components/dashboard";
 import VerifyPro from "./components/verifyPro";
 import VerifySeller from "./components/verifySeller";
 import VerifyFeed from "./components/verifyFeed";
+import VerifyPost from "./components/verifyPost";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Nav.Link href="/verifyPro">Verification Professional</Nav.Link>
               <Nav.Link href="/verifySeller"> Verification Seller</Nav.Link>
               <Nav.Link href="/verifyFeed">Verification Feed</Nav.Link>
+              <Nav.Link href="/verifyPost">Verification Post</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -31,6 +33,7 @@ function App() {
         <Route exact path="/verifyPro" element={<VerifyPro />}></Route>
         <Route exact path="/verifySeller" element={<VerifySeller />}></Route>
         <Route exact path="/verifyFeed" element={<VerifyFeed />}></Route>
+        <Route exact path="/verifyPost" element={<VerifyPost />}></Route>
       </Routes>
     </div>
   );
