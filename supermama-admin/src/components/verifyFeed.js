@@ -8,7 +8,9 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db, logout } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 //Calling Bootstrap 4.5 css
@@ -16,6 +18,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "material-table";
 
 function VerifyFeed() {
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+  }, [user, loading]);
   const [feeds, setFeeds] = useState([]);
   function updateFeed(id) {
     updateDoc(doc(db, "feed", id), {

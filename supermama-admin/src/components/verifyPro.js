@@ -10,7 +10,9 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { Button, Overlay, Popover, Header } from "react-bootstrap";
-import { db } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db, logout } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 //Calling Bootstrap 4.5 css
@@ -26,6 +28,12 @@ import {
 } from "react-image-magnifiers";
 
 function VerifyPro() {
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+  }, [user, loading]);
   const [verifyPro, SetVerifyPro] = useState([]);
 
   const [show, setShow] = useState(false);
@@ -52,8 +60,7 @@ function VerifyPro() {
   if (isEmpty(verifyPro)) {
     return "No verification";
   }
-  
- 
+
   function updateVerified(id) {
     updateDoc(doc(db, "verifyPro", id), {
       status: "Verified",
@@ -65,8 +72,6 @@ function VerifyPro() {
       status: "Rejected",
     });
   }
-  
-  
 
   return (
     <div>
@@ -94,22 +99,31 @@ function VerifyPro() {
                 </td>
 
                 <td align="center">
-                <GlassMagnifier
-                            imageSrc={verify.data.photoURL}
-                            imageAlt="Certificate"
-                            style={{ width: 500, height: 600 ,}}
-                            largeImageSrc={verify.data.photoURL} // Optional
-                            
-                          /> 
+                  <GlassMagnifier
+                    imageSrc={verify.data.photoURL}
+                    imageAlt="Certificate"
+                    style={{ width: 500, height: 600 }}
+                    largeImageSrc={verify.data.photoURL} // Optional
+                  />
                 </td>
 
                 <td>{verify.data.status}</td>
 
                 <td>
-                  <Button onClick={updateVerified.bind(this, verify.id)} variant="outline-primary">Verify</Button>
+                  <Button
+                    onClick={updateVerified.bind(this, verify.id)}
+                    variant="outline-primary"
+                  >
+                    Verify
+                  </Button>
                   <br />
                   <br />
-                  <Button onClick={updateRejected.bind(this, verify.id)} variant="danger">Reject</Button>
+                  <Button
+                    onClick={updateRejected.bind(this, verify.id)}
+                    variant="danger"
+                  >
+                    Reject
+                  </Button>
                 </td>
               </tr>
             ))}
