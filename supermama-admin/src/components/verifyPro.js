@@ -69,7 +69,7 @@ function VerifyPro() {
 
   function updateRejected(id) {
     updateDoc(doc(db, "verifyPro", id), {
-      status: "Rejected",
+      status: "Normal",
     });
   }
 
