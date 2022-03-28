@@ -32,7 +32,7 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
               <Nav.Link href="/verifyPro">Verification Professional</Nav.Link>
-              {/* <Nav.Link href="/verifySeller"> Verification Seller</Nav.Link> */}
+              <Nav.Link href="/verifyProduct"> Verification Product</Nav.Link>
               <Nav.Link href="/verifyFeed">Verification Feed</Nav.Link>
               <Nav.Link href="/verifyPost">Verification Post</Nav.Link>
               <Nav.Link href="/logout">Logout</Nav.Link>
@@ -46,7 +46,7 @@ function App() {
         <Route exact path="/logout" element={<Logout />} />
         <Route exact path="/dashboard" element={<Dashboard />}></Route>
         <Route exact path="/verifyPro" element={<VerifyPro />}></Route>
-        {/* <Route exact path="/verifySeller" element={<VerifySeller />}></Route> */}
+        <Route exact path="/verifyProduct" element={<VerifySeller />}></Route>
         <Route exact path="/verifyFeed" element={<VerifyFeed />}></Route>
         <Route exact path="/verifyPost" element={<VerifyPost />}></Route>
       </Routes>
