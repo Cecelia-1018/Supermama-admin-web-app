@@ -66,27 +66,27 @@ function Dashboard() {
     });
   }, []);
 
-  const [ent, setEnt] =  useState("");
+  const [ent, setEnt] = useState("");
   useEffect(() => {
     const q = query(collection(db, "entertainment"));
     onSnapshot(q, (querySnapshot) => {
-     setEnt (querySnapshot.size);
+      setEnt(querySnapshot.size);
     });
   }, []);
 
-  const [feed, setFeed] =  useState("");
+  const [feed, setFeed] = useState("");
   useEffect(() => {
     const q = query(collection(db, "feed"));
     onSnapshot(q, (querySnapshot) => {
-     setFeed(querySnapshot.size);
+      setFeed(querySnapshot.size);
     });
   }, []);
 
-  const [forum, setForum] =  useState("");
+  const [forum, setForum] = useState("");
   useEffect(() => {
     const q = query(collection(db, "forums"));
     onSnapshot(q, (querySnapshot) => {
-     setForum(querySnapshot.size);
+      setForum(querySnapshot.size);
     });
   }, []);
 
@@ -94,7 +94,25 @@ function Dashboard() {
     { name: "Entertainments", data: [ent], color: "	#FFC0CB" },
     { name: "Feeds", data: [feed], color: "#FFB6C1" },
     { name: "Forums", data: [forum], color: "	#FF69B4" },
-  
+  ];
+
+  const series1 = [
+    { name: "Verified User", data: [3], color: "red" },
+    { name: "Normal User", data: [7], color: "#FFB6C1" },
+   
+  ];
+//'Education','Food','Female Disease','Heathcare','Life','Pregnancy','Parenting','Other'
+  const series2 = [
+    { name: "Education", data: [3], color: "blue" },
+    { name: "Food", data: [5], color: "blue" },
+    { name: "Female Disease", data: [7], color: "blue" },
+    { name: "Heathcare", data: [3], color: "blue" },
+    { name: "Life", data: [4], color: "blue" },
+    { name: "Pregnancy", data: [7], color: "blue" },
+    { name: "Parenting", data: [8], color: "blue" },
+    { name: "Other", data: [7], color: "blue" },
+   
+   
   ];
 
   return (
@@ -109,68 +127,126 @@ function Dashboard() {
               <Col sm>
                 <h3>Total Posts Based On Types</h3>
                 <Chart width={400} height={300} series={series} minY={0}>
-      <Layer width="80%" height="80%" position="middle center">
-        <Transform method="transpose">
-          <Ticks
-            axis="y"
-            lineLength="100%"
-            lineVisible
-            lineStyle={{ stroke: "lightgray" }}
-            labelStyle={{
-              textAnchor: "end",
-              dominantBaseline: "middle",
-              fill: "#485465"
-            }}
-            labelAttributes={{ x: -5 }}
-          />
-          <Ticks
-            ticks={{ minDistance: 1 }}
-            axis="x"
-            label={({ index, props }) => series[index].name}
-            labelStyle={{
-              textAnchor: "middle",
-              dominantBaseline: "text-before-edge",
-              fill: "#485465"
-            }}
-            labelAttributes={{ y: 3 }}
-          />
-          <Bars
-            barAttributes={({ seriesIndex }) => ({
-              fill: series[seriesIndex].color
-            })}
-            innerPadding="4.5%"
-            groupPadding="3%"
-            opacity={0.9}
-          />
-        </Transform>
-      </Layer>
-    </Chart>
+                  <Layer width="80%" height="80%" position="middle center">
+                    <Transform method="transpose">
+                      <Ticks
+                        axis="y"
+                        lineLength="100%"
+                        lineVisible
+                        lineStyle={{ stroke: "lightgray" }}
+                        labelStyle={{
+                          textAnchor: "end",
+                          dominantBaseline: "middle",
+                          fill: "#485465",
+                        }}
+                        labelAttributes={{ x: -5 }}
+                      />
+                      <Ticks
+                        ticks={{ minDistance: 1 }}
+                        axis="x"
+                        label={({ index, props }) => series[index].name}
+                        labelStyle={{
+                          textAnchor: "middle",
+                          dominantBaseline: "text-before-edge",
+                          fill: "#485465",
+                        }}
+                        labelAttributes={{ y: 3 }}
+                      />
+                      <Bars
+                        barAttributes={({ seriesIndex }) => ({
+                          fill: series[seriesIndex].color,
+                        })}
+                        innerPadding="4.5%"
+                        groupPadding="3%"
+                        opacity={0.9}
+                      />
+                    </Transform>
+                  </Layer>
+                </Chart>
               </Col>
               <Col sm>
                 <h3>Number of User Types</h3>
-                <Chart
-                  width={600}
-                  height={300}
-                  series={[
-                    {
-                      data: [1, 2, 3],
-                    },
-                    {
-                      data: [5, 7, 11],
-                    },
-                    {
-                      data: [13, 17, 19],
-                    },
-                  ]}
-                >
-                  <Transform method={["stack", "rotate"]}>
-                    <Bars combined innerPadding="2%" />
-                  </Transform>
+                <Chart width={400} height={300} series={series1} minY={0}>
+                  <Layer width="80%" height="80%" position="middle center">
+                    <Transform method="transpose">
+                      <Ticks
+                        axis="y"
+                        lineLength="100%"
+                        lineVisible
+                        lineStyle={{ stroke: "lightgray" }}
+                        labelStyle={{
+                          textAnchor: "end",
+                          dominantBaseline: "middle",
+                          fill: "#485465",
+                        }}
+                        labelAttributes={{ x: -5 }}
+                      />
+                      <Ticks
+                        ticks={{ minDistance: 1 }}
+                        axis="x"
+                        label={({ index, props }) => series1[index].name}
+                        labelStyle={{
+                          textAnchor: "middle",
+                          dominantBaseline: "text-before-edge",
+                          fill: "#485465",
+                        }}
+                        labelAttributes={{ y: 3 }}
+                      />
+                      <Bars
+                        barAttributes={({ seriesIndex }) => ({
+                          fill: series1[seriesIndex].color,
+                        })}
+                        innerPadding="4.5%"
+                        groupPadding="3%"
+                        opacity={0.9}
+                      />
+                    </Transform>
+                  </Layer>
+                </Chart>
+              </Col>
+              <Col sm>
+                <h3>Hot Categories Discussed on Forum</h3>
+                <Chart width={400} height={300} series={series2} minY={0}>
+                  <Layer width="80%" height="80%" position="middle center">
+                    <Transform method="transpose">
+                      <Ticks
+                        axis="y"
+                        lineLength="100%"
+                        lineVisible
+                        lineStyle={{ stroke: "lightgray" }}
+                        labelStyle={{
+                          textAnchor: "end",
+                          dominantBaseline: "middle",
+                          fill: "#485465",
+                        }}
+                        labelAttributes={{ x: -5 }}
+                      />
+                      <Ticks
+                        ticks={{ minDistance: 1 }}
+                        axis="x"
+                        label={({ index, props }) => series2[index].name}
+                        labelStyle={{
+                          textAnchor: "middle",
+                          dominantBaseline: "text-before-edge",
+                          fill: "#485465",
+                        }}
+                        labelAttributes={{ y: 3 }}
+                      />
+                      <Bars
+                        barAttributes={({ seriesIndex }) => ({
+                          fill: series2[seriesIndex].color,
+                        })}
+                        innerPadding="4.5%"
+                        groupPadding="3%"
+                        opacity={0.9}
+                      />
+                    </Transform>
+                  </Layer>
                 </Chart>
               </Col>
             </Row>
             <br />
-            <Row>
+            {/* <Row>
               <Col sm>
                 <h3>Current Popular Questions on Forum</h3>
                 <Chart
@@ -287,7 +363,7 @@ function Dashboard() {
                   </Layer>
                 </Chart>
               </Col>
-            </Row>
+            </Row> */}
           </Container>
           {/* {users.map((user) => (
             <h2> {user.data.name} </h2>
