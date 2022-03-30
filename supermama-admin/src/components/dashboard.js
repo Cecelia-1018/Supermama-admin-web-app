@@ -52,17 +52,12 @@ function Dashboard() {
     if (!user) return navigate("/");
   }, [user, loading]);
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, "users"));
     onSnapshot(q, (querySnapshot) => {
-      setUsers(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
+      setUsers(querySnapshot.size);
     });
   }, []);
 
@@ -90,6 +85,24 @@ function Dashboard() {
     });
   }, []);
 
+  const [verify, setVerify] = useState("");
+  useEffect(() => {
+    const q = query(collection(db, "verifyPro"),where("status","==","Verified"));
+    onSnapshot(q, (querySnapshot) => {
+      setVerify(querySnapshot.size);
+    });
+  }, []);
+
+  const [forumCatH, setForumCatH] = useState("");
+  useEffect(() => {
+    const q = query(collection(db, "forums"),where("category","==","Healthcare"));
+    onSnapshot(q, (querySnapshot) => {
+      setForumCatH(querySnapshot.size);
+    });
+  }, []);
+
+  
+
   const series = [
     { name: "Entertainments", data: [ent], color: "	#FFC0CB" },
     { name: "Feeds", data: [feed], color: "#FFB6C1" },
@@ -97,20 +110,20 @@ function Dashboard() {
   ];
 
   const series1 = [
-    { name: "Verified User", data: [3], color: "red" },
-    { name: "Normal User", data: [7], color: "#FFB6C1" },
+    { name: "Verified User", data: [verify], color: "red" },
+    { name: "Normal User", data: [users], color: "#FFB6C1" },
    
   ];
-//'Education','Food','Female Disease','Heathcare','Life','Pregnancy','Parenting','Other'
+//a 'Education', b 'Food', c 'Female Disease', d'Heathcare', e'Life',f'Pregnancy',g'Parenting',h'Other'
   const series2 = [
-    { name: "Education", data: [3], color: "blue" },
-    { name: "Food", data: [5], color: "blue" },
-    { name: "Female Disease", data: [7], color: "blue" },
-    { name: "Heathcare", data: [3], color: "blue" },
-    { name: "Life", data: [4], color: "blue" },
-    { name: "Pregnancy", data: [7], color: "blue" },
-    { name: "Parenting", data: [8], color: "blue" },
-    { name: "Other", data: [7], color: "blue" },
+    { name: "a", data: [3], color: "blue" },
+    { name: "b", data: [5], color: "blue" },
+    { name: "c", data: [7], color: "blue" },
+    { name: "d", data: [forumCatH], color: "blue" },
+    { name: "e", data: [4], color: "blue" },
+    { name: "f", data: [7], color: "blue" },
+    { name: "g", data: [8], color: "blue" },
+    { name: "h", data: [7], color: "blue" },
    
    
   ];
