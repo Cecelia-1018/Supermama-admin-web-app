@@ -217,7 +217,7 @@ function Dashboard() {
                   </Layer>
                 </Chart>
               </Col>
-              <Col sm>
+              {/* <Col sm>
                 <h3>Hot Categories Discussed on Forum</h3>
                 <Chart width={400} height={300} series={series2} minY={0}>
                   <Layer width="80%" height="80%" position="middle center">
@@ -256,7 +256,7 @@ function Dashboard() {
                     </Transform>
                   </Layer>
                 </Chart>
-              </Col>
+              </Col> */}
             </Row>
             <br />
             {/* <Row>

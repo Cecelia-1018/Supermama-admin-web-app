@@ -96,6 +96,13 @@ function VerifyPro() {
                   {verify.data.userId} <br />
                   <b>Professional Field:</b> <br />
                   {verify.data.proField} <br />
+                  <b>Location:</b> <br />
+                  {verify.data.location} <br />
+                  <b>Contact:</b> <br />
+                  {verify.data.contact} <br />
+                  <b>Website Link:</b> <br />
+                  {verify.data.web} <br />
+                  
                 </td>
 
                 <td align="center">
