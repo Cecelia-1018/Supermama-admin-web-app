@@ -52,7 +52,7 @@ function Dashboard() {
     if (!user) return navigate("/");
   }, [user, loading]);
 
-  const [users, setUsers] = useState('');
+  const [users, setUsers] = useState("");
 
   useEffect(() => {
     const q = query(collection(db, "users"));
@@ -87,7 +87,10 @@ function Dashboard() {
 
   const [verify, setVerify] = useState("");
   useEffect(() => {
-    const q = query(collection(db, "verifyPro"),where("status","==","Verified"));
+    const q = query(
+      collection(db, "verifyPro"),
+      where("status", "==", "Verified")
+    );
     onSnapshot(q, (querySnapshot) => {
       setVerify(querySnapshot.size);
     });
@@ -95,13 +98,103 @@ function Dashboard() {
 
   const [forumCatH, setForumCatH] = useState("");
   useEffect(() => {
-    const q = query(collection(db, "forums"),where("category","==","Healthcare"));
+    const q = query(
+      collection(db, "forums"),
+      where("category", "==", "Healthcare"),
+      where("approve", "==", "approved")
+    );
     onSnapshot(q, (querySnapshot) => {
       setForumCatH(querySnapshot.size);
     });
   }, []);
 
-  
+  const [food, setFood] = useState("");
+  useEffect(() => {
+    const q = query(
+      collection(db, "product"),
+      where("category", "==", "Food"),
+      where("approve", "==", "approved")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setFood(querySnapshot.size);
+    });
+  }, []);
+
+  const [balloon, setBalloon] = useState("");
+  useEffect(() => {
+    const q = query(
+      collection(db, "product"),
+      where("category", "==", "Balloon"),
+      where("approve", "==", "approved")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setBalloon(querySnapshot.size);
+    });
+  }, []);
+
+  const [cake, setCake] = useState("");
+  useEffect(() => {
+    const q = query(
+      collection(db, "product"),
+      where("category", "==", "Cake"),
+      where("approve", "==", "approved")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setCake(querySnapshot.size);
+    });
+  }, []);
+
+  const [artcraft, setArtCraft] = useState("");
+  useEffect(() => {
+    const q = query(
+      collection(db, "product"),
+      where("category", "==", "Art & Craft"),
+      where("approve", "==", "approved")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setArtCraft(querySnapshot.size);
+    });
+  }, []);
+
+  const [toy, setToy] = useState("");
+  useEffect(() => {
+    const q = query(
+      collection(db, "product"),
+      where("category", "==", "Toy"),
+      where("approve", "==", "approved")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setToy(querySnapshot.size);
+    });
+  }, []);
+
+  const [container, setContainer] = useState("");
+  useEffect(() => {
+    const q = query(
+      collection(db, "product"),
+      where("category", "==", "Container"),
+      where("approve", "==", "approved")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setContainer(querySnapshot.size);
+    });
+  }, []);
+
+  const [payment, setPayment] = useState("");
+  useEffect(() => {
+    const q = query(collection(db, "cart"), where("payment", "==", true));
+    onSnapshot(q, (querySnapshot) => {
+      setPayment(querySnapshot.size);
+    });
+  }, []);
+
+  const [paymentF, setPaymentF] = useState("");
+  useEffect(() => {
+    const q = query(collection(db, "cart"), where("payment", "==", false));
+    onSnapshot(q, (querySnapshot) => {
+      setPaymentF(querySnapshot.size);
+    });
+  }, []);
 
   const series = [
     { name: "Entertainments", data: [ent], color: "	#FFC0CB" },
@@ -111,29 +204,23 @@ function Dashboard() {
 
   const series1 = [
     { name: "Verified User", data: [verify], color: "red" },
-    { name: "Normal User", data: [users], color: "#FFB6C1" },
-   
+    { name: "Normal User", data: [users], color: "red" },
   ];
-//a 'Education', b 'Food', c 'Female Disease', d'Heathcare', e'Life',f'Pregnancy',g'Parenting',h'Other'
+
   const series2 = [
-    { name: "a", data: [3], color: "blue" },
-    { name: "b", data: [5], color: "blue" },
-    { name: "c", data: [7], color: "blue" },
-    { name: "d", data: [forumCatH], color: "blue" },
-    { name: "e", data: [4], color: "blue" },
-    { name: "f", data: [7], color: "blue" },
-    { name: "g", data: [8], color: "blue" },
-    { name: "h", data: [7], color: "blue" },
-   
-   
+    { name: "Food", data: [food], color: "#A10559" },
+    { name: "Balloon", data: [balloon], color: "#A10559" },
+    { name: "Cake", data: [cake], color: "#A10559" },
+    { name: "Art&Craft", data: [artcraft], color: "#A10559" },
+    { name: "Toy", data: [toy], color: "#A10559" },
+    { name: "Container", data: [container], color: "#A10559" },
   ];
+
+  const series3 = [{ data: [payment, paymentF] }];
 
   return (
     <>
       <div>
-        {/* Logged in as
-        {/* <div>{name}</div> */}
-        {/* <text>"Admin"</text> */}
         <div>
           <Container>
             <Row>
@@ -217,8 +304,10 @@ function Dashboard() {
                   </Layer>
                 </Chart>
               </Col>
-              {/* <Col sm>
-                <h3>Hot Categories Discussed on Forum</h3>
+            </Row>
+            <Row>
+              <Col sm>
+                <h3>Number of Product Approved for Sell Based on Category</h3>
                 <Chart width={400} height={300} series={series2} minY={0}>
                   <Layer width="80%" height="80%" position="middle center">
                     <Transform method="transpose">
@@ -256,136 +345,21 @@ function Dashboard() {
                     </Transform>
                   </Layer>
                 </Chart>
-              </Col> */}
+              </Col>
+              <Col sm>
+                <h3>Total Valid and Non-Valid Payment Sales Records</h3>
+                <Chart width={400} height={300} series={series3}>
+                  <Transform method={["transpose", "stack"]}>
+                    <Pies combined={true}   />
+                  </Transform>
+                </Chart>
+                <br/>
+                <h6>Dark blue - represent valid</h6>
+                <h6>Light blue - represent non-valid</h6>
+              </Col>
             </Row>
             <br />
-            {/* <Row>
-              <Col sm>
-                <h3>Current Popular Questions on Forum</h3>
-                <Chart
-                  width={600}
-                  height={300}
-                  series={[
-                    {
-                      data: [1, 2, 3],
-                      name: "John",
-                    },
-                    {
-                      data: [5, 7, 11],
-                      name: "Jane",
-                    },
-                    {
-                      data: [13, 17, 19],
-                      name: "James",
-                    },
-                  ]}
-                  minY={0}
-                  style={{
-                    fontFamily: "sans-serif",
-                    fontSize: "0.75em",
-                  }}
-                >
-                  <Layer width="80%" height="90%" position="top center">
-                    <Ticks
-                      axis="y"
-                      lineLength="100%"
-                      lineVisible
-                      lineStyle={{
-                        stroke: "lightgray",
-                      }}
-                      labelStyle={{
-                        dominantBaseline: "middle",
-                        fill: "lightgray",
-                        textAnchor: "end",
-                      }}
-                      labelAttributes={{
-                        x: -5,
-                      }}
-                    />
-                    <Ticks
-                      axis="x"
-                      label={function noRefCheck() {}}
-                      labelStyle={{
-                        dominantBaseline: "text-before-edge",
-                        fill: "lightgray",
-                        textAnchor: "middle",
-                      }}
-                      labelAttributes={{
-                        y: 3,
-                      }}
-                    />
-                    <Bars groupPadding="3%" innerPadding="0.5%" />
-                  </Layer>
-                </Chart>
-              </Col>
-              <Col sm>
-                <h3>Current Popular Posts on Entertainments</h3>
-                <Chart
-                  width={600}
-                  height={300}
-                  series={[
-                    {
-                      data: [1, 2, 3],
-                      name: "John",
-                    },
-                    {
-                      data: [5, 7, 11],
-                      name: "Jane",
-                    },
-                    {
-                      data: [13, 17, 19],
-                      name: "James",
-                    },
-                  ]}
-                  minY={0}
-                  style={{
-                    fontFamily: "sans-serif",
-                    fontSize: "0.75em",
-                  }}
-                >
-                  <Layer width="80%" height="90%" position="top center">
-                    <Ticks
-                      axis="y"
-                      lineLength="100%"
-                      lineVisible
-                      lineStyle={{
-                        stroke: "lightgray",
-                      }}
-                      labelStyle={{
-                        dominantBaseline: "middle",
-                        fill: "lightgray",
-                        textAnchor: "end",
-                      }}
-                      labelAttributes={{
-                        x: -5,
-                      }}
-                    />
-                    <Ticks
-                      axis="x"
-                      label={function noRefCheck() {}}
-                      labelStyle={{
-                        dominantBaseline: "text-before-edge",
-                        fill: "lightgray",
-                        textAnchor: "middle",
-                      }}
-                      labelAttributes={{
-                        y: 3,
-                      }}
-                    />
-                    <Bars groupPadding="3%" innerPadding="0.5%" />
-                  </Layer>
-                </Chart>
-              </Col>
-            </Row> */}
           </Container>
-          {/* {users.map((user) => (
-            <h2> {user.data.name} </h2>
-
-            //   {user.data.name}
-          ))} */}
-          {/* <button className="dashboard__btn" onClick={logout}>
-            Logout
-          </button> */}
         </div>
       </div>
     </>
