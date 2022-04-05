@@ -7,3 +7,5 @@ Enter : cd supermama-admin > yarn start <br>
 Login with <br>
 Email: admin@gmail.com <br>
 Password: 123456 <br>
+
+# May refer to : https://reactjs.org/docs/create-a-new-react-app.html
